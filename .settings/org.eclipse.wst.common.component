@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-  <wb-module deploy-name="Treina-SNAPSHOT">
-    <property name="context-root" value="Treina"/>
+  <wb-module deploy-name="treina">
+    <property name="context-root" value="treina"/>
     <wb-resource deploy-path="/" source-path="src/main/webapp"/>
     <property name="java-output-path" value="/target/classes"/>
     <dependent-module archiveName="vraptor-3.5.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/br/com/caelum/vraptor/3.5.3/vraptor-3.5.3.jar">
@@ -61,6 +61,5 @@
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
   </wb-module>
 </project-modules>

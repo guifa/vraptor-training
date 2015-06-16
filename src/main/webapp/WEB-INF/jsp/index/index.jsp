@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>VRaptor Blank Project</title>
 </head>
-<body>Milena, It works!! ${variable} ${linkTo[IndexController].index}
+<body>Hi You! It works!!  This is the value of the variable setted on IndexController.index ${variable}
 </body>
 <div>
 	<a></a>

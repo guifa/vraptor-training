@@ -4,7 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>VRaptor Blank Project</title>
 </head>
-<body>Hi You! It works!!  This is the value of the variable setted on IndexController.index ${variable}
+<body>
+	<h1>Hi You! It works!!</h1>
+	<br>
+	This is the value of the variable setted on
+	<i>IndexController.index </i>
+	<strong>${variable}</strong>
 </body>
 <div>
 	<a></a>

@@ -31,6 +31,13 @@ public class IndexController {
 
 	@Path("/")
 	public void index() {
+		
+		result.include("variable", "VRaptor!");
+		
+	}
+	
+	@Path("/novo")
+	public void index2() {
 		result.include("variable", "VRaptor!");
 	}
 

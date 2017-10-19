@@ -12,11 +12,33 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vraptor.version>3.5.3</vraptor.version>
 	</properties>
+
 	<dependencies>
+	
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-library -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.2</version>	
+		</dependency>
+
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
 			<version>${vraptor.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 	</dependencies>
 
@@ -65,35 +87,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>start-tomcat</id>
-						<goals>
-							<goal>run-war</goal>
-						</goals>
-						<phase>pre-integration-test</phase>
-						<configuration>
-							<port>${test.server.port}</port>
-							<path>/jaxrs-service</path>
-							<fork>true</fork>
-							<useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-tomcat</id>
-						<goals>
-							<goal>shutdown</goal>
-						</goals>
-						<phase>post-integration-test</phase>
-						<configuration>
-							<path>/jaxrs-service</path>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+			
 
 		</plugins>
 	</build>

@@ -30,55 +30,71 @@ public class FuncionariosController {
 		this.validator = validator;
 	}	
 	
-	@Path("novo")
-	public void novo() {
+	@Path("cadastro")
+	public void form() {
 		
 	}
 	
+	@Path({"", "/"})
 	public List<Funcionario> lista(){
+		result.include("funcionarios", dbMemory.todos());
 		return dbMemory.todos();		
 	}
 	
 	@Post
-	public void adiciona(final Funcionario funcionario) {
-//		 validator.checking(new Validations() { {
-//			 that(!funcionario.getNome().isEmpty(), "funcionario.nome", "nome.vazio");
-//			 that(!(funcionario.getDataNascimento() != null), "funcionario.dataNascimento", "dataNascimento.vazia");
-//			 that(funcionario.getMatricula() > 0, "funcionario.matricula", "matricula.invalida");
-//	        } });
-//	    validator.onErrorUsePageOf(FuncionariosController.class).novo();
+	@Path("adicionar")
+	public void adiciona(Funcionario funcionario) {
+		if(dbMemory.busca(funcionario.getMatricula()) != null) {
+			validaFuncionario(funcionario);
+			dbMemory.atualiza(funcionario);
+		}else {
+			validaFuncionario(funcionario);
+			dbMemory.salva(funcionario);
+		}
+		 
 		
 	    dbMemory.salva(funcionario);
 		result.redirectTo(FuncionariosController.class).lista();
 	}
 	
-	@Delete
-	@Path("{funcionario}")
-	public boolean deleta(Funcionario funcionario) {
-		return dbMemory.delete(funcionario);
+	
+	@Delete("deleta/{matricula}")
+	public void deleta(int matricula) {
+		dbMemory.delete(matricula);
+		result.redirectTo(this).lista();
 	}
 	
 	@Put
-	@Path("{funcionario}")
-	public boolean atualiza(Funcionario funcionario) {
-		return dbMemory.atualiza(funcionario);
+	@Path("atualiza")
+	public void atualiza(Funcionario funcionario) {		
+		dbMemory.atualiza(funcionario);
+		
+		result.include("funcionarios", dbMemory.todos());
+		result.redirectTo(this).lista();
 	}
 	
-//	@Get
-//	@Path("/funcionarios/{funcionario.matricula}")
-//	public Funcionario busca(int matricula) {
-//		return dbMemory.busca(matricula);
-//	}
-	
-//	@Get
-//	@Path("/funcionarios")
-//	public boolean existe(Funcionario funcionario) {
-//		return dbMemory.contem(funcionario);
-//	}
-	
 	@Get
-	@Path("/funcionarios")
+	@Path("busca")
+	public void busca(int matricula) {
+		result.include("funcionario", dbMemory.busca(matricula));
+		result.redirectTo(this).form();
+	}
+	
+	
+	@Path("pesquisa/{matricula}")
 	public List<Funcionario> pesquisa(int matricula, String nome, Date dataNascimento){
+		System.out.println(matricula + " " + nome + " " + dataNascimento);
+		result.include("funcionarios", dbMemory.pesquisa(matricula, nome, dataNascimento));
+		result.redirectTo(this).lista();
 		return dbMemory.pesquisa(matricula, nome, dataNascimento);
+	}
+	
+	public void validaFuncionario(final Funcionario funcionario) {
+		validator.checking(new Validations() { {
+			 that(!funcionario.getNome().isEmpty(), "funcionario.nome", "nome.vazio");
+//			 that(!(funcionario.getDataNascimento() != null), "funcionario.dataNascimento", "dataNascimento.vazia");
+			 that(funcionario.getMatricula() > 0, "funcionario.matricula", "matricula.invalida");
+	        } });
+	    validator.onErrorUsePageOf(FuncionariosController.class).form();
 	}
 }

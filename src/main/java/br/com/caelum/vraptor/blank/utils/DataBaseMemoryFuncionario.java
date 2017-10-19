@@ -16,37 +16,47 @@ import br.com.caelum.vraptor.ioc.Component;
 public class DataBaseMemoryFuncionario {
 
 	private static final Set<Funcionario> FUNCIONARIOS = new HashSet<Funcionario>();
+	private int count = 1;
+
 
 	public DataBaseMemoryFuncionario() {
-		carregaExemplos();
+//		carregaExemplos();
 	}
 	
 	public void carregaExemplos() {
 		Date atual = new Date();
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		System.out.println(atual);
 		try {
 			atual = format.parse(format.format(atual));
+			System.out.println(atual);
 		} catch (ParseException e) {}
 		
 		Funcionario f = new Funcionario();
-		f.setMatricula(12);
+		f.setMatricula(1);
 		f.setNome("GUILHERME FERREIRA");
 		f.setDataNascimento(atual);
 		salva(f);
-		f = new Funcionario();
-		f.setMatricula(14);
-		f.setNome("FULANO DE TAL");
-		f.setDataNascimento(atual);
-		salva(f);
 		
+		f = new Funcionario();
+		f.setMatricula(1);
+		f.setNome("TESTE TESTE");
+		f.setDataNascimento(atual);
+		salva(f);	
+		
+		f = new Funcionario();
+		f.setMatricula(1);
+		f.setNome("AHHHHHH");
+		f.setDataNascimento(atual);
+		salva(f);	
 	}
 
 	public Boolean salva(Funcionario funcionario) {
 		return FUNCIONARIOS.add(funcionario);
 	}
 
-	public Boolean delete(Funcionario funcionario) {
-		return FUNCIONARIOS.remove(busca(funcionario.getMatricula()));
+	public Boolean delete(int matricula) {
+		return FUNCIONARIOS.remove(busca(matricula));
 	}
 
 	public Boolean atualiza(Funcionario funcionario) {
@@ -71,15 +81,15 @@ public class DataBaseMemoryFuncionario {
 		List<Funcionario> retorno = new ArrayList<Funcionario>();
 		boolean add = false;
 		for (Funcionario func : FUNCIONARIOS) {
-			if (matricula != null && func.getMatricula() == matricula || matricula == null)
+			if (matricula != null && func.getMatricula() == matricula)
 				add = true;
 			else
 				add = false;
-			if (nome != null && func.getNome().equals(nome) || nome == null && add)
+			if (nome != null && func.getNome().equals(nome) || add)
 				add = true;
 			else
 				add = false;
-			if (dataNascimento != null && func.getDataNascimento().compareTo(dataNascimento) == 0 || dataNascimento == null && add)
+			if (dataNascimento != null && func.getDataNascimento().compareTo(dataNascimento) == 0 || add)
 				add = true;
 			else
 				add = false;
@@ -88,9 +98,26 @@ public class DataBaseMemoryFuncionario {
 		}
 		return retorno;
 	}
+	
+	public List<Funcionario> pesquisa(Integer matricula) {
+		List<Funcionario> retorno = new ArrayList<Funcionario>();
+		boolean add = false;
+		for (Funcionario func : FUNCIONARIOS) {
+			if (matricula != null && func.getMatricula() == matricula) {
+				retorno.add(func);
+			}
+		}
+		return retorno;
+	}
 
 	public List<Funcionario> todos() {
 		return new ArrayList<Funcionario>(FUNCIONARIOS);
 	}
-
+	
+	public static void main(String[] args) {
+		DataBaseMemoryFuncionario dataBaseMemoryFuncionario = new DataBaseMemoryFuncionario();
+		dataBaseMemoryFuncionario.carregaExemplos();
+		System.out.println(dataBaseMemoryFuncionario.todos().get(0));
+		System.out.println(dataBaseMemoryFuncionario.pesquisa(1));
+	}
 }

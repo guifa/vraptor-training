@@ -6,7 +6,17 @@ public class Funcionario {
 	
 	private int matricula;
 	private String nome;
-	private Date dataNascimento;	
+	private Date dataNascimento;
+	
+	public Funcionario() {
+		
+	}
+	
+	public Funcionario(String nome, int matricula, Date dataNascimento) {
+		this.nome = nome;
+		this.matricula = matricula;
+		this.dataNascimento = dataNascimento;
+	}
 	
 	public int getMatricula() {
 		return matricula;

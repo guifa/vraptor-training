@@ -19,8 +19,7 @@ public class MyBatisSessionFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		SqlSessionFactory sqlSessionFactory =
-		  new SqlSessionFactoryBuilder().build(inputStream);
+		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 	}
 
 	public static SqlSessionFactory getSqlSessionFactory() {

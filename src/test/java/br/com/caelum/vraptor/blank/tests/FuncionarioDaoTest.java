@@ -36,7 +36,7 @@ public class FuncionarioDaoTest {
 	public void testGetFuncionarioByMatricula() {
 		Funcionario funcionario = funcionarioDao.getFuncionarioByMatricula(1);
 		Assert.assertNotNull(funcionario);
-		System.out.println(funcionario);
+		System.out.println(funcionario.getNome());
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class FuncionarioDaoTest {
 		List<Funcionario> funcionarios = funcionarioDao.getAllFuncionarios();
 		Assert.assertNotNull(funcionarios);
 		for (Funcionario funcionario : funcionarios) {
-			System.out.println(funcionario);
+			System.out.println(funcionario.getNome());
 		}
 	}
 
@@ -58,7 +58,7 @@ public class FuncionarioDaoTest {
 			atual = format.parse(format.format(atual));
 		} catch (ParseException e) {}
 		
-		funcionario.setMatricula(1);
+		funcionario.setMatricula(2);
 		funcionario.setNome("Test Tests");
 		funcionario.setDataNascimento(atual);
 

@@ -5,7 +5,7 @@
 <configuration>
 	<properties resource='database.properties' />
 	<typeAliases>
-		<typeAlias alias="Funcionario" type="br.com.caelum.vraptor.blank.modelo.funcionario.Funcionario" />
+		<typeAlias alias="Funcionario" type="br.com.caelum.vraptor.blank.modelo.Funcionario" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -19,6 +19,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="FuncionarioMapper.xml" />
+		<mapper resource="Funcionario.xml" />
 	</mappers>
 </configuration>

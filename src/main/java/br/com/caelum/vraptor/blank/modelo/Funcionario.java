@@ -13,6 +13,7 @@ public class Funcionario {
 	}
 	
 	public Funcionario(String nome, Integer matricula, Date dataNascimento) {
+		super();
 		this.nome = nome;
 		this.matricula = matricula;
 		this.dataNascimento = dataNascimento;

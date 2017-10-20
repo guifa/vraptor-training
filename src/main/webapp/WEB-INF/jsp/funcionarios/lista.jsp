@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<form action="/treina/funcionarios/pesquisa/funcionario.matricula" method="post">
+	<form action="<c:url value='/funcionarios/pesquisa'/>" method="post">
 		<div>
 			<label for="matricula">Matrícula</label>
 			<input type="number" id="matricula" name="funcionario.matricula" />
@@ -46,7 +46,7 @@
 					</td>
 					<td>
 						<form action="/treina/funcionarios/deleta/${funcionario.matricula}" method="post">
-							<button type="submit" name="_method" value="DELETE">Deletar</button>
+							<button type="submit" name="_method" value="DELETE" onclick="return confirm('Você tem certeza que quer deletar?')">Deletar</button>
 						</form>
 					</td>
 				</tr>

@@ -36,8 +36,8 @@ public class FuncionariosController {
 	}
 	
 	@Path({"", "/"})
-	public List<Funcionario> lista(){
-		result.include("funcionarios", dbMemory.todos());
+	public List<Funcionario> lista(Funcionario funcionario){
+		result.include("funcionarios", dbMemory.pesquisa(funcionario.getMatricula(), funcionario.getNome(), funcionario.getDataNascimento()));
 		return dbMemory.todos();		
 	}
 	
@@ -54,14 +54,14 @@ public class FuncionariosController {
 		 
 		
 	    dbMemory.salva(funcionario);
-		result.redirectTo(FuncionariosController.class).lista();
+		result.redirectTo(FuncionariosController.class).lista(new Funcionario());
 	}
 	
 	
 	@Delete("deleta/{matricula}")
 	public void deleta(int matricula) {
 		dbMemory.delete(matricula);
-		result.redirectTo(this).lista();
+		result.redirectTo(this).lista(new Funcionario());
 	}
 	
 	@Put
@@ -70,7 +70,7 @@ public class FuncionariosController {
 		dbMemory.atualiza(funcionario);
 		
 		result.include("funcionarios", dbMemory.todos());
-		result.redirectTo(this).lista();
+		result.redirectTo(this).lista(new Funcionario());
 	}
 	
 	@Get
@@ -81,12 +81,11 @@ public class FuncionariosController {
 	}
 	
 	
-	@Path("pesquisa/{matricula}")
-	public List<Funcionario> pesquisa(int matricula, String nome, Date dataNascimento){
-		System.out.println(matricula + " " + nome + " " + dataNascimento);
-		result.include("funcionarios", dbMemory.pesquisa(matricula, nome, dataNascimento));
-		result.redirectTo(this).lista();
-		return dbMemory.pesquisa(matricula, nome, dataNascimento);
+	@Path("pesquisa")
+	public List<Funcionario> pesquisa(Funcionario funcionario){
+		result.include("funcionarios", dbMemory.pesquisa(funcionario.getMatricula(), funcionario.getNome(), funcionario.getDataNascimento()));
+		result.redirectTo(this).lista(funcionario);
+		return dbMemory.pesquisa(funcionario.getMatricula(), funcionario.getNome(), funcionario.getDataNascimento());
 	}
 	
 	public void validaFuncionario(final Funcionario funcionario) {

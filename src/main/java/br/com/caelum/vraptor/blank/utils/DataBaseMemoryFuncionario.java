@@ -39,13 +39,13 @@ public class DataBaseMemoryFuncionario {
 		salva(f);
 		
 		f = new Funcionario();
-		f.setMatricula(1);
+		f.setMatricula(2);
 		f.setNome("TESTE TESTE");
 		f.setDataNascimento(atual);
 		salva(f);	
 		
 		f = new Funcionario();
-		f.setMatricula(1);
+		f.setMatricula(3);
 		f.setNome("AHHHHHH");
 		f.setDataNascimento(atual);
 		salva(f);	
@@ -81,15 +81,15 @@ public class DataBaseMemoryFuncionario {
 		List<Funcionario> retorno = new ArrayList<Funcionario>();
 		boolean add = false;
 		for (Funcionario func : FUNCIONARIOS) {
-			if (matricula != null && func.getMatricula() == matricula)
+			if (matricula != null && func.getMatricula().equals(matricula) || matricula == null)
 				add = true;
 			else
 				add = false;
-			if (nome != null && func.getNome().equals(nome) || add)
+			if (nome != null && func.getNome().equals(nome) || nome == null && add)
 				add = true;
 			else
 				add = false;
-			if (dataNascimento != null && func.getDataNascimento().compareTo(dataNascimento) == 0 || add)
+			if (dataNascimento != null && func.getDataNascimento().compareTo(dataNascimento) == 0 || dataNascimento == null && add)
 				add = true;
 			else
 				add = false;
@@ -98,26 +98,9 @@ public class DataBaseMemoryFuncionario {
 		}
 		return retorno;
 	}
-	
-	public List<Funcionario> pesquisa(Integer matricula) {
-		List<Funcionario> retorno = new ArrayList<Funcionario>();
-		boolean add = false;
-		for (Funcionario func : FUNCIONARIOS) {
-			if (matricula != null && func.getMatricula() == matricula) {
-				retorno.add(func);
-			}
-		}
-		return retorno;
-	}
 
 	public List<Funcionario> todos() {
 		return new ArrayList<Funcionario>(FUNCIONARIOS);
 	}
 	
-	public static void main(String[] args) {
-		DataBaseMemoryFuncionario dataBaseMemoryFuncionario = new DataBaseMemoryFuncionario();
-		dataBaseMemoryFuncionario.carregaExemplos();
-		System.out.println(dataBaseMemoryFuncionario.todos().get(0));
-		System.out.println(dataBaseMemoryFuncionario.pesquisa(1));
-	}
 }

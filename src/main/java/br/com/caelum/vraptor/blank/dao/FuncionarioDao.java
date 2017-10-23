@@ -1,9 +1,5 @@
 package br.com.caelum.vraptor.blank.dao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,6 +9,7 @@ import br.com.caelum.vraptor.blank.modelo.Funcionario;
 import br.com.caelum.vraptor.blank.utils.MyBatisSessionFactory;
 import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class FuncionarioDao {
 	
 	private SqlSessionFactory sqlSessionFactory;
@@ -24,8 +21,8 @@ public class FuncionarioDao {
 	public void insertFuncionario(Funcionario funcionario) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			FuncionarioMapper userMapper = sqlSession.getMapper(FuncionarioMapper.class);
-			userMapper.insertFuncionario(funcionario);
+			FuncionarioMapper funcionarioMapper = sqlSession.getMapper(FuncionarioMapper.class);
+			funcionarioMapper.insertFuncionario(funcionario);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();
@@ -35,8 +32,8 @@ public class FuncionarioDao {
 	public Funcionario getFuncionarioByMatricula(Integer matricula) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			FuncionarioMapper userMapper = sqlSession.getMapper(FuncionarioMapper.class);
-			return userMapper.getFuncionarioByMatricula(matricula);
+			FuncionarioMapper funcionarioMapper = sqlSession.getMapper(FuncionarioMapper.class);
+			return funcionarioMapper.getFuncionarioByMatricula(matricula);
 		} finally {
 			sqlSession.close();
 		}
@@ -45,8 +42,18 @@ public class FuncionarioDao {
 	public List<Funcionario> getAllFuncionarios() {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			FuncionarioMapper userMapper = sqlSession.getMapper(FuncionarioMapper.class);
-			return userMapper.getAllFuncionarios();
+			FuncionarioMapper funcionarioMapper = sqlSession.getMapper(FuncionarioMapper.class);
+			return funcionarioMapper.getAllFuncionarios();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<Funcionario> searchFuncionarios(Funcionario funcionario){
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			FuncionarioMapper funcionarioMapper = sqlSession.getMapper(FuncionarioMapper.class);
+			return funcionarioMapper.searchFuncionarios(funcionario);
 		} finally {
 			sqlSession.close();
 		}
@@ -55,8 +62,8 @@ public class FuncionarioDao {
 	public void updateFuncionario(Funcionario funcionario) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			FuncionarioMapper userMapper = sqlSession.getMapper(FuncionarioMapper.class);
-			userMapper.updateFuncionario(funcionario);
+			FuncionarioMapper funcionarioMapper = sqlSession.getMapper(FuncionarioMapper.class);
+			funcionarioMapper.updateFuncionario(funcionario);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();
@@ -67,25 +74,13 @@ public class FuncionarioDao {
 	public void deleteFuncionario(Integer matricula) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			FuncionarioMapper userMapper = sqlSession.getMapper(FuncionarioMapper.class);
-			userMapper.deleteFuncionario(matricula);
+			FuncionarioMapper funcionarioMapper = sqlSession.getMapper(FuncionarioMapper.class);
+			funcionarioMapper.deleteFuncionario(matricula);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();
 		}
 
-	}
-	
-	public static void main(String[] args) {
-		FuncionarioDao funcionarioDao = new FuncionarioDao();
-		Date atual = new Date();
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			atual = format.parse(format.format(atual));
-		} catch (ParseException e) {}
-		Funcionario funcionario = new Funcionario("Teste", 1, atual);
-		
-		funcionarioDao.insertFuncionario(funcionario);
 	}
 
 }

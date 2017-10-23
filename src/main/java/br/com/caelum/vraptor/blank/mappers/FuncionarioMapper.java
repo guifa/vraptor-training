@@ -12,6 +12,8 @@ public interface FuncionarioMapper {
 	
 	public List<Funcionario> getAllFuncionarios();
 	
+	public List<Funcionario> searchFuncionarios(Funcionario funcionario);
+	
 	public void updateFuncionario(Funcionario funcionario);
 	
 	public void deleteFuncionario(Integer matricula);

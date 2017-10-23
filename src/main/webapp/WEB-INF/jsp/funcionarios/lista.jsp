@@ -45,7 +45,7 @@
 						<a href="<c:url value="/funcionarios/busca?matricula=${funcionario.matricula}"/>">Editar</a>
 					</td>
 					<td>
-						<form action="/treina/funcionarios/deleta/${funcionario.matricula}" method="post">
+						<form action="<c:url value="/funcionarios/deleta/${funcionario.matricula}"/>" method="post">
 							<button type="submit" name="_method" value="DELETE" onclick="return confirm('Você tem certeza que quer deletar?')">Deletar</button>
 						</form>
 					</td>

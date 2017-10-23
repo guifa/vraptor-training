@@ -1,7 +1,5 @@
 package br.com.caelum.vraptor.blank.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.com.caelum.vraptor.Delete;
@@ -12,20 +10,20 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.blank.dao.FuncionarioDao;
 import br.com.caelum.vraptor.blank.modelo.Funcionario;
-import br.com.caelum.vraptor.blank.utils.DataBaseMemoryFuncionario;
 import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 @Path("/funcionarios")
 public class FuncionariosController {
 	
-	private DataBaseMemoryFuncionario dbMemory;
+	private FuncionarioDao funcionarioDao;
 	private Result result;
 	private Validator validator;
 
-	private FuncionariosController(DataBaseMemoryFuncionario dbMemory,  Result result, Validator validator) {
-		this.dbMemory = dbMemory;
+	private FuncionariosController(FuncionarioDao funcionarioDao,  Result result, Validator validator) {
+		this.funcionarioDao = funcionarioDao;
 		this.result = result;
 		this.validator = validator;
 	}	
@@ -37,63 +35,64 @@ public class FuncionariosController {
 	
 	@Path({"", "/"})
 	public List<Funcionario> lista(Funcionario funcionario){
-		result.include("funcionarios", dbMemory.pesquisa(funcionario.getMatricula(), funcionario.getNome(), funcionario.getDataNascimento()));
-		return dbMemory.todos();		
+		result.include("funcionarios", funcionarioDao.searchFuncionarios(funcionario));
+		return funcionarioDao.searchFuncionarios(funcionario);
 	}
 	
 	@Post
 	@Path("adicionar")
 	public void adiciona(Funcionario funcionario) {
-		if(dbMemory.busca(funcionario.getMatricula()) != null) {
+		if(funcionarioDao.getFuncionarioByMatricula(funcionario.getMatricula()) != null) {
 			validaFuncionario(funcionario);
-			dbMemory.atualiza(funcionario);
+			funcionarioDao.updateFuncionario(funcionario);
 		}else {
 			validaFuncionario(funcionario);
-			dbMemory.salva(funcionario);
-		}
-		 
-		
-	    dbMemory.salva(funcionario);
+			funcionarioDao.insertFuncionario(funcionario);
+		}		
+		result.redirectTo(FuncionariosController.class).lista(new Funcionario());
+	}
+	
+	@Put
+	@Path("atualizar")
+	public void atualiza(Funcionario funcionario) {
+		if(funcionarioDao.getFuncionarioByMatricula(funcionario.getMatricula()) != null) {
+			validaFuncionario(funcionario);
+			funcionarioDao.updateFuncionario(funcionario);
+		}else {
+			validaFuncionario(funcionario);
+			funcionarioDao.insertFuncionario(funcionario);
+		}		
 		result.redirectTo(FuncionariosController.class).lista(new Funcionario());
 	}
 	
 	
 	@Delete("deleta/{matricula}")
 	public void deleta(int matricula) {
-		dbMemory.delete(matricula);
-		result.redirectTo(this).lista(new Funcionario());
-	}
-	
-	@Put
-	@Path("atualiza")
-	public void atualiza(Funcionario funcionario) {		
-		dbMemory.atualiza(funcionario);
-		
-		result.include("funcionarios", dbMemory.todos());
+		funcionarioDao.deleteFuncionario(matricula);
 		result.redirectTo(this).lista(new Funcionario());
 	}
 	
 	@Get
 	@Path("busca")
 	public void busca(int matricula) {
-		result.include("funcionario", dbMemory.busca(matricula));
+		result.include("funcionario", funcionarioDao.getFuncionarioByMatricula(matricula));
 		result.redirectTo(this).form();
 	}
 	
 	
 	@Path("pesquisa")
 	public List<Funcionario> pesquisa(Funcionario funcionario){
-		result.include("funcionarios", dbMemory.pesquisa(funcionario.getMatricula(), funcionario.getNome(), funcionario.getDataNascimento()));
+		result.include("funcionarios", funcionarioDao.searchFuncionarios(funcionario));
 		result.redirectTo(this).lista(funcionario);
-		return dbMemory.pesquisa(funcionario.getMatricula(), funcionario.getNome(), funcionario.getDataNascimento());
+		return funcionarioDao.searchFuncionarios(funcionario);
 	}
 	
 	public void validaFuncionario(final Funcionario funcionario) {
 		validator.checking(new Validations() { {
-			 that(!funcionario.getNome().isEmpty(), "funcionario.nome", "nome.vazio");
-//			 that(!(funcionario.getDataNascimento() != null), "funcionario.dataNascimento", "dataNascimento.vazia");
-			 that(funcionario.getMatricula() > 0, "funcionario.matricula", "matricula.invalida");
+			 that(funcionario.getNome() != null, "error", "nome.vazio");
+			 that((funcionario.getDataNascimento() != null), "error", "dataNascimento.vazia");
+			 that(funcionario.getMatricula() != null, "error", "matricula.invalida");
 	        } });
-	    validator.onErrorUsePageOf(FuncionariosController.class).form();
+	    validator.onErrorUsePageOf(this).form();
 	}
 }

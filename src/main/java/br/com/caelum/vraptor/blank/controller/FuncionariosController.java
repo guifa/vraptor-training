@@ -22,7 +22,7 @@ public class FuncionariosController {
 	private Result result;
 	private Validator validator;
 
-	private FuncionariosController(FuncionarioDao funcionarioDao,  Result result, Validator validator) {
+	private FuncionariosController(FuncionarioDao funcionarioDao, Result result, Validator validator) {
 		this.funcionarioDao = funcionarioDao;
 		this.result = result;
 		this.validator = validator;
@@ -89,9 +89,9 @@ public class FuncionariosController {
 	
 	public void validaFuncionario(final Funcionario funcionario) {
 		validator.checking(new Validations() { {
-			 that(funcionario.getNome() != null, "error", "nome.vazio");
-			 that((funcionario.getDataNascimento() != null), "error", "dataNascimento.vazia");
-			 that(funcionario.getMatricula() != null, "error", "matricula.invalida");
+			 that(funcionario.getNome() != null, "label label-danger", "nome.vazio");
+			 that((funcionario.getDataNascimento() != null), "label label-danger", "dataNascimento.vazia");
+			 that(funcionario.getMatricula() != null, "label label-danger", "matricula.invalida");
 	        } });
 	    validator.onErrorUsePageOf(this).form();
 	}

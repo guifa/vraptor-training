@@ -5,41 +5,54 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Cadastro de Funcionário</title>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${empty funcionario.matricula}">
-			<form action="<c:url value='/funcionarios/adicionar'/>" method="post">
-		</c:when>
-		<c:otherwise>
-			<form action="<c:url value='/funcionarios/atualizar'/>" method="post">
-		</c:otherwise>
-	</c:choose>
-	<c:forEach items="${errors}" var="error">
-    		${error.message}<br />
-	</c:forEach>
-	<div>
-		<label for="matricula">Matrícula</label>
-		<input type="number" id="matricula" name="funcionario.matricula" value="${funcionario.matricula}" />
+	<c:import url="../templates/header.jsp" />
+	<div class="container">
+		<c:choose>
+			<c:when test="${empty funcionario.matricula}">
+				<form action="<c:url value='/funcionarios/adicionar'/>" method="post">
+			</c:when>
+			<c:otherwise>
+				<form action="<c:url value='/funcionarios/atualizar'/>" method="post">
+			</c:otherwise>
+		</c:choose>
+		<c:forEach items="${errors}" var="error">
+			<div class="alert alert-danger">
+				<strong>Erro!</strong>
+				${error.message}
+			</div>
+		</c:forEach>
+		<div class="form-group">
+			<label for="matricula">Matrícula</label>
+			<input type="number" id="matricula" name="funcionario.matricula" placeholder="Digite a Matrícula" class="form-control"  value="${funcionario.matricula}" />
+		</div>
+		<div class="form-group">
+			<label for="nome">Nome</label>
+			<input type="text" id="nome" name="funcionario.nome" placeholder="Digite o Nome do Funcionário" class="form-control" value="${funcionario.nome}" />
+		</div>
+		<div class="form-group">
+			<label for="dataNascimento">Data de Nascimento</label>
+			<input type="text" id="dataNascimento" name="funcionario.dataNascimento" placeholder="Digite a Data de Nascimento" class="form-control" value="<fmt:formatDate pattern='dd/MM/yyyy' value='${funcionario.dataNascimento}' />" />
+		</div>
+		<c:choose>
+			<c:when test="${empty funcionario.matricula}">
+				<input type="submit" value="Salvar" class="btn btn-default"/>
+			</c:when>
+			<c:otherwise>
+				<button type="submit" name="_method" value="PUT" class="btn btn-default">Atualizar</button>
+			</c:otherwise>
+		</c:choose>
+		</form>
 	</div>
-	<div>
-		<label for="nome">Nome</label>
-		<input type="text" id="nome" name="funcionario.nome" value="${funcionario.nome}" />
-	</div>
-	<div>
-		<label for="dataNascimento">Data de Nascimento</label>
-		<input type="text" id="dataNascimento" name="funcionario.dataNascimento" value="<fmt:formatDate pattern='dd/MM/yyyy' value='${funcionario.dataNascimento}' />" />
-	</div>
-	<c:choose>
-		<c:when test="${empty funcionario.matricula}">
-			<input type="submit" value="Salvar" />
-		</c:when>
-		<c:otherwise>
-			<button type="submit" name="_method" value="PUT">Atualizar</button>
-		</c:otherwise>
-	</c:choose>
-	</form>
 
+	<c:import url="../templates/footer.jsp" />
 </body>
 </html>

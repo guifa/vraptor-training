@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.caelum.vraptor.blank.modelo.Funcionario;
 
-@Component
 public interface FuncionarioMapper {
 	
 	public void insertFuncionario(Funcionario funcionario);

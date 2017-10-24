@@ -12,6 +12,13 @@
 		<vraptor.version>3.5.3</vraptor.version>
 	</properties>
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.8.11</version>
+</dependency>
+	
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>

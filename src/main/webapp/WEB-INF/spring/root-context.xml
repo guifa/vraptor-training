@@ -32,6 +32,6 @@
 		<property name="basePackage" value="br.com.caelum.vraptor.blank.mappers" />
 	</bean>
 
-	<context:component-scan base-package="br.com.caelum.vraptor.blank.service" />
+	<context:component-scan base-package="br.com.caelum.vraptor.blank" />
 
 </beans>

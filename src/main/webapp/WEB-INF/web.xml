@@ -21,6 +21,11 @@
 		<param-value>br.com.caelum.iogi</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>br.com.caelum.vraptor.provider</param-name>
+		<param-value>br.com.caelum.vraptor.ioc.guice.GuiceProvider</param-value>
+	</context-param>
+
 	<filter-mapping>
 		<filter-name>vraptor</filter-name>
 		<url-pattern>/*</url-pattern>

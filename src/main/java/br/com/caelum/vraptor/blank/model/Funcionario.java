@@ -1,4 +1,4 @@
-package br.com.caelum.vraptor.blank.modelo;
+package br.com.caelum.vraptor.blank.model;
 
 import java.util.Date;
 

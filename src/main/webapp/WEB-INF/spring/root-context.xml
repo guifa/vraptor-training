@@ -20,7 +20,7 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="br.com.caelum.vraptor.blank.modelo" />
+		<property name="typeAliasesPackage" value="br.com.caelum.vraptor.blank.model" />
 		<property name="mapperLocations" value="classpath*:br/com/caelum/vraptor/blank/mappers/*.xml" />
 	</bean>
 

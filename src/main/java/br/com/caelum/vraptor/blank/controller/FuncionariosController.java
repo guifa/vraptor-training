@@ -10,7 +10,7 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.model.Funcionario;
 import br.com.caelum.vraptor.blank.service.FuncionarioService;
 import br.com.caelum.vraptor.validator.Validations;
 

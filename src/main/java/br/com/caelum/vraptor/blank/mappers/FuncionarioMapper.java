@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.model.Funcionario;
 
 public interface FuncionarioMapper {
 	

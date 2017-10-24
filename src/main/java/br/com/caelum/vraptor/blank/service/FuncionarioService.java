@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caelum.vraptor.blank.mappers.FuncionarioMapper;
-import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.model.Funcionario;
 
 @Service
 @Transactional

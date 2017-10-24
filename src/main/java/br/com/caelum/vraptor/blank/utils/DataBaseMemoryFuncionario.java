@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.model.Funcionario;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component

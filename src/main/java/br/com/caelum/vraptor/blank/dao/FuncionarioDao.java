@@ -5,7 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import br.com.caelum.vraptor.blank.mappers.FuncionarioMapper;
-import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.model.Funcionario;
 import br.com.caelum.vraptor.blank.utils.MyBatisSessionFactory;
 import br.com.caelum.vraptor.ioc.Component;
 

@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.caelum.vraptor.blank.dao.FuncionarioDao;
-import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.model.Funcionario;
 
 public class FuncionarioDaoTest {
 	private static FuncionarioDao funcionarioDao;

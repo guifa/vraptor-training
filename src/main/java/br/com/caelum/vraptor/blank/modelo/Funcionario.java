@@ -9,7 +9,7 @@ public class Funcionario {
 	private Date dataNascimento;
 	
 	public Funcionario() {
-		
+		super();
 	}
 	
 	public Funcionario(String nome, Integer matricula, Date dataNascimento) {

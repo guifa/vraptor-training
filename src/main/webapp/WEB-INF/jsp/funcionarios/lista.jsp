@@ -67,6 +67,5 @@
 			</tbody>
 		</table>
 	</div>
-	<c:import url="../templates/footer.jsp" />
 </body>
 </html>

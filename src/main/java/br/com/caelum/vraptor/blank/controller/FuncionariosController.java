@@ -10,20 +10,20 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.blank.dao.FuncionarioDao;
 import br.com.caelum.vraptor.blank.modelo.Funcionario;
+import br.com.caelum.vraptor.blank.service.FuncionarioService;
 import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 @Path("/funcionarios")
 public class FuncionariosController {
 	
-	private FuncionarioDao funcionarioDao;
+	private FuncionarioService funcionarioService;
 	private Result result;
 	private Validator validator;
 
-	private FuncionariosController(FuncionarioDao funcionarioDao, Result result, Validator validator) {
-		this.funcionarioDao = funcionarioDao;
+	private FuncionariosController(FuncionarioService funcionarioService, Result result, Validator validator) {
+		this.funcionarioService = funcionarioService;
 		this.result = result;
 		this.validator = validator;
 	}	
@@ -35,19 +35,19 @@ public class FuncionariosController {
 	
 	@Path({"", "/"})
 	public List<Funcionario> lista(Funcionario funcionario){
-		result.include("funcionarios", funcionarioDao.searchFuncionarios(funcionario));
-		return funcionarioDao.searchFuncionarios(funcionario);
+		result.include("funcionarios", funcionarioService.searchFuncionarios(funcionario));
+		return funcionarioService.searchFuncionarios(funcionario);
 	}
 	
 	@Post
 	@Path("adicionar")
 	public void adiciona(Funcionario funcionario) {
-		if(funcionarioDao.getFuncionarioByMatricula(funcionario.getMatricula()) != null) {
+		if(funcionarioService.getFuncionarioByMatricula(funcionario.getMatricula()) != null) {
 			validaFuncionario(funcionario);
-			funcionarioDao.updateFuncionario(funcionario);
+			funcionarioService.updateFuncionario(funcionario);
 		}else {
 			validaFuncionario(funcionario);
-			funcionarioDao.insertFuncionario(funcionario);
+			funcionarioService.insertFuncionario(funcionario);
 		}		
 		result.redirectTo(FuncionariosController.class).lista(new Funcionario());
 	}
@@ -55,12 +55,12 @@ public class FuncionariosController {
 	@Put
 	@Path("atualizar")
 	public void atualiza(Funcionario funcionario) {
-		if(funcionarioDao.getFuncionarioByMatricula(funcionario.getMatricula()) != null) {
+		if(funcionarioService.getFuncionarioByMatricula(funcionario.getMatricula()) != null) {
 			validaFuncionario(funcionario);
-			funcionarioDao.updateFuncionario(funcionario);
+			funcionarioService.updateFuncionario(funcionario);
 		}else {
 			validaFuncionario(funcionario);
-			funcionarioDao.insertFuncionario(funcionario);
+			funcionarioService.insertFuncionario(funcionario);
 		}		
 		result.redirectTo(FuncionariosController.class).lista(new Funcionario());
 	}
@@ -68,23 +68,23 @@ public class FuncionariosController {
 	
 	@Delete("deleta/{matricula}")
 	public void deleta(int matricula) {
-		funcionarioDao.deleteFuncionario(matricula);
+		funcionarioService.deleteFuncionario(matricula);
 		result.redirectTo(this).lista(new Funcionario());
 	}
 	
 	@Get
 	@Path("busca")
 	public void busca(int matricula) {
-		result.include("funcionario", funcionarioDao.getFuncionarioByMatricula(matricula));
+		result.include("funcionario", funcionarioService.getFuncionarioByMatricula(matricula));
 		result.redirectTo(this).form();
 	}
 	
 	
 	@Path("pesquisa")
 	public List<Funcionario> pesquisa(Funcionario funcionario){
-		result.include("funcionarios", funcionarioDao.searchFuncionarios(funcionario));
+		result.include("funcionarios", funcionarioService.searchFuncionarios(funcionario));
 		result.redirectTo(this).lista(funcionario);
-		return funcionarioDao.searchFuncionarios(funcionario);
+		return funcionarioService.searchFuncionarios(funcionario);
 	}
 	
 	public void validaFuncionario(final Funcionario funcionario) {

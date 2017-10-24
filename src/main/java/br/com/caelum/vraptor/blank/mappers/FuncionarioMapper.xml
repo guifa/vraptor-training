@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="br.com.caelum.vraptor.blank.mappers.FuncionarioMapper">
+	<insert id="insertFuncionario" parameterType="Funcionario" keyProperty="matricula">
+		INSERT INTO funcionario (matricula, nome, data_nascimento) VALUES (#{matricula}, #{nome}, #{dataNascimento});
+	</insert>
+
+	<update id="updateFuncionario" parameterType="Funcionario">
+		UPDATE funcionario SET matricula = #{matricula}, nome = #{nome}, data_nascimento = #{dataNascimento} WHERE matricula = #{matricula};
+	</update>
+
+	<delete id="deleteFuncionario" parameterType="int">
+		DELETE FROM funcionario WHERE matricula = #{matricula};
+	</delete>
+
+	<resultMap id="result" type="Funcionario">
+		<result property="matricula" column="matricula" />
+		<result property="nome" column="nome" />
+		<result property="dataNascimento" column="data_nascimento" />
+	</resultMap>
+
+	<select id="getAllFuncionarios" resultMap="result">
+		SELECT * FROM funcionario;
+	</select>
+
+	<select id="searchFuncionarios" resultMap="result">
+		SELECT
+		*
+		FROM funcionario
+		<where>
+			<if test="matricula != null">
+				matricula = #{matricula}
+			</if>
+			<if test="nome != null">
+				and nome = #{nome}
+			</if>
+			<if test="dataNascimento != null">
+				and datanascimento = #{dataNascimento}
+			</if>
+		</where>
+	</select>
+
+	<select id="getFuncionarioByMatricula" parameterType="int" resultMap="result">
+		SELECT * FROM funcionario WHERE matricula = #{matricula};
+	</select>
+</mapper>
